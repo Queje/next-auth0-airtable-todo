@@ -1,7 +1,7 @@
 {
-  "name": "next-auth0-airtaible-todo",
+  "name": "next-auth0-airtable-todo",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,12 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.4",
     "next": "12.1.5",
+    "postcss": "^8.4.12",
+    "postcss-preset-env": "^7.4.3",
     "react": "18.0.0",
-    "react-dom": "18.0.0"
+    "react-dom": "18.0.0",
+    "tailwindcss": "^3.0.24"
   },
   "devDependencies": {
     "eslint": "8.13.0",
     "eslint-config-next": "12.1.5"
-  }
+  },
+  "description": "todo application",
+  "main": "index.js",
+  "repository": "https://github.com/Queje/next-auth0-airtable-todo.git",
+  "author": "jeremy querne",
+  "license": "MIT"
 }
