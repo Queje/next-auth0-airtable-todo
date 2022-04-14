@@ -1,10 +1,17 @@
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
+import ToDo from '../components/ToDo'
 import { table, sortingRecords } from './api/utils/airtableHelper'
-
+import { ToDosContext } from '../contexts/ToDosContext'
+import { useEffect, useContext } from 'react'
 
 export default function Home({initialTodos}) {
-  console.log(initialTodos)
+
+  const {todos, setTodos} = useContext(ToDosContext);
+  useEffect(()=>{
+    setTodos(initialTodos)
+  },[])
+  
   return (
     <div>
       <Head>
@@ -15,6 +22,12 @@ export default function Home({initialTodos}) {
       <Navbar />
       <main>
         <h1>My ToDo application </h1>
+        <ul>
+          { todos && 
+             todos.map(todo => 
+              <ToDo key={todo.id} todo={todo}/>
+            )}
+        </ul>
       </main>
     </div>
   )
@@ -22,10 +35,10 @@ export default function Home({initialTodos}) {
 
 export async function getServerSideProps(context){
   try{
-    const todos = await table.select({}).firstPage();
+    const firstTodos = await table.select({}).firstPage();
     return {
       props: {
-        initialTodos : sortingRecords(todos)
+        initialTodos : sortingRecords(firstTodos)
       }
     }
   }catch(err){
