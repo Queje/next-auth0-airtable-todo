@@ -3,12 +3,12 @@ export default function Navbar() {
         <nav className="flex justify-between items-center py-6">
             <p className="text-2xl font-bold text-grey-800">My Todos</p>
             <div className="flex">
-                <a href="api/logout"
+                <a href="/api/auth/logout"
                     className="rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4"
                 >
                     logout
                 </a>
-                <a href="api/login"
+                <a href="/api/auth/login"
                     className="rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4"
                 >
                     login
