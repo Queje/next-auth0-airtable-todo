@@ -1,18 +1,28 @@
+import Link from "next/link"
+
 export default function Navbar() {
     return(
         <nav className="flex justify-between items-center py-6">
             <p className="text-2xl font-bold text-grey-800">My Todos</p>
             <div className="flex">
-                <a href="/api/auth/logout"
-                    className="rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4"
+                <Link href="/api/auth/logout"
+                passHref
                 >
-                    logout
-                </a>
-                <a href="/api/auth/login"
-                    className="rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4"
+                    <span
+                        className="rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4"
+                    >
+                        logout
+                    </span>
+                </Link>
+                <Link href="/api/auth/login"
+                passHref
                 >
-                    login
-                </a>
+                    <span
+                        className="rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4"
+                    >
+                        login
+                    </span>
+                </Link>
             </div>
         </nav>
     )
