@@ -1,12 +1,13 @@
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
-import ToDo from '../components/ToDo'
 import { table, sortingRecords } from './api/utils/airtableHelper'
 import { ToDosContext } from '../contexts/ToDosContext'
 import { useEffect, useContext } from 'react'
+import { useUser } from '@auth0/nextjs-auth0';
+import UserContent from '../components/UserContent'
 
 export default function Home({initialTodos}) {
-
+  const { user, isLoading } = useUser();
   const {todos, setTodos} = useContext(ToDosContext);
   useEffect(()=>{
     setTodos(initialTodos)
@@ -21,13 +22,15 @@ export default function Home({initialTodos}) {
       </Head>
       <Navbar />
       <main>
-        <h1>My ToDo application </h1>
-        <ul>
-          { todos && 
-             todos.map(todo => 
-              <ToDo key={todo.id} todo={todo}/>
-            )}
-        </ul>
+        {!user && 
+          <p>login to check your todo list</p>
+        }
+        { isLoading &&
+          <p>...Loading...</p>
+        }
+        { user && 
+          <UserContent todos={todos}/>
+        }
       </main>
     </div>
   )
