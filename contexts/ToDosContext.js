@@ -20,7 +20,7 @@ const ToDosProvider = ({children}) => {
             const res = await fetch('/api/createToDos',{
                 method: 'POST',
                 body: JSON.stringify({description}),
-                headers: {'Content-Type': 'application/json'}
+                headers: {'Content-Type': 'application/json'},
             });
             const newToDos = await res.json();
             setTodos((prevToDos)=>{

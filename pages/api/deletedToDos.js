@@ -1,6 +1,7 @@
 import { table, sortingRecords } from './utils/airtableHelper'
+import ownsRecords from './middelware/ownsRecords'
 
-export default async function getToDos (req, res) {
+export default ownsRecords(async (req, res) => {
     const { id } = req.body;
 
     try{
@@ -9,4 +10,4 @@ export default async function getToDos (req, res) {
     }catch(err){
         res.status(500).json({msg:'something went wrong!...'});
     }
-};
+});
