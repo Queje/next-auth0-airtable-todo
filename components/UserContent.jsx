@@ -1,4 +1,3 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import ToDoForm from '../components/ToDoForm';
 import ToDo from '../components/ToDo';
 
@@ -17,5 +16,3 @@ export default function UserContent({todos}) {
         </>
     )
 }
-
-export const getServerSideProps = withPageAuthRequired();

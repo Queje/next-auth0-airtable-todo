@@ -2,7 +2,7 @@ import { useState, useContext } from "react"
 import { ToDosContext } from "../contexts/ToDosContext";
 
 export default function ToDoForm() {
-    const [todo, setTodo] = useState();
+    const [todo, setTodo] = useState("");
     const { addTodos } = useContext(ToDosContext);
 
     const handleSubmit = (e) => {

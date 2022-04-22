@@ -3,8 +3,9 @@ import Navbar from '../components/Navbar'
 import { table, sortingRecords } from './api/utils/airtableHelper'
 import { ToDosContext } from '../contexts/ToDosContext'
 import { useEffect, useContext } from 'react'
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser } from '@auth0/nextjs-auth0'
 import UserContent from '../components/UserContent'
+import auth0 from './api/utils/auth0'
 
 export default function Home({initialTodos}) {
   const { user, isLoading } = useUser();
@@ -37,19 +38,32 @@ export default function Home({initialTodos}) {
 }
 
 export async function getServerSideProps(context){
-  try{
-    const firstTodos = await table.select({}).firstPage();
-    return {
-      props: {
-        initialTodos : sortingRecords(firstTodos)
+  const session = await auth0.getSession(context.req, context.res)
+    if (session?.user){
+      try{
+        const firstTodos = await table
+          .select({filterByFormula: `userId = '${session.user.sub}'`})
+          .firstPage();
+        return {
+          props: {
+            initialTodos : sortingRecords(firstTodos),
+            user: session?.user || null,
+          }
+        }
       }
-    }
-  }catch(err){
-    console.error(err)
-    return{
-      props : {
-        err : "Something went wrong!..."
+      catch(err){
+        console.error(err)
+        return{
+          props : {
+            err : "Something went wrong!..."
+          }
+        }
+      }
+    } else {
+      return{
+        props:{
+          initialTodos: ""
+        }
       }
     }
   }
-}
